@@ -1,0 +1,9 @@
+# Normalize line endings to LF in the repo, checkout as-is on all platforms
+* text=auto eol=lf
+
+# Force binary for images/icons
+*.svg binary
+*.png binary
+*.jpg binary
+*.ico binary
+*.webp binary
