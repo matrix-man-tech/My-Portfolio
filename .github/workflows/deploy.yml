@@ -15,43 +15,11 @@ concurrency:
 
 jobs:
   # ─────────────────────────────────────────────
-  # JOB 1: Build
-  # Runs on every push and every PR
-  # ─────────────────────────────────────────────
-  build:
-    name: 🔨 Build
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: npm
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build Astro site
-        run: npm run build
-
-      - name: Upload build artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: dist
-          path: dist/
-          retention-days: 1
-
-  # ─────────────────────────────────────────────
-  # JOB 2: Deploy Preview (Pull Requests)
+  # JOB 1: Deploy Preview (Pull Requests)
   # Deploys a preview URL on every PR
   # ─────────────────────────────────────────────
   deploy-preview:
     name: 🔍 Deploy Preview
-    needs: build
     runs-on: ubuntu-latest
     if: github.event_name == 'pull_request'
     environment:
@@ -67,19 +35,18 @@ jobs:
           node-version: 20
           cache: npm
 
+      - name: Install dependencies
+        run: npm ci
+
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
 
       - name: Pull Vercel environment info
         run: vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
+        # Note: vercel pull works here because .vercel/project.json is committed in your repo.
+        # Best practice is to ignore .vercel/ and pass VERCEL_ORG_ID and VERCEL_PROJECT_ID via secrets instead.
 
-      - name: Download build artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: dist
-          path: dist/
-
-      - name: Build Vercel output (prebuilt)
+      - name: Build Vercel output
         run: vercel build --token=${{ secrets.VERCEL_TOKEN }}
 
       - name: Deploy preview to Vercel
@@ -100,11 +67,10 @@ jobs:
             })
 
   # ─────────────────────────────────────────────
-  # JOB 3: Deploy Production (main branch only)
+  # JOB 2: Deploy Production (main branch only)
   # ─────────────────────────────────────────────
   deploy-production:
     name: 🚀 Deploy Production
-    needs: build
     runs-on: ubuntu-latest
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     environment:
@@ -121,19 +87,16 @@ jobs:
           node-version: 20
           cache: npm
 
+      - name: Install dependencies
+        run: npm ci
+
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
 
       - name: Pull Vercel environment info
         run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
 
-      - name: Download build artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: dist
-          path: dist/
-
-      - name: Build Vercel output (prebuilt)
+      - name: Build Vercel output
         run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
 
       - name: Deploy to production
