@@ -4,70 +4,65 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 const projects = [
   {
     id: "01",
-    name: "k8s-autoscaler",
-    desc: "Custom Kubernetes HPA controller using KEDA with Kafka lag metrics. Handles 50k+ events/sec with sub-100ms autoscaling decisions.",
-    tags: ["Go", "Kubernetes", "Kafka", "KEDA"],
+    name: "Chatify",
+    desc: "Chatify is a high-performance, real-time messaging platform built with the MERN stack, featuring a robust DevOps architecture. It integrates custom JWT authentication, cloud-native storage, and an automated infrastructure-as-code (IaC) pipeline.",
+    tags: [
+  // Frontend & State
+    "React", "Tailwind CSS",
+  // Backend & Security
+    "Node.js", "Express", "MongoDB", "JWT", "Socket.io", "Arcjet", "Resend", "Cloudinary", 
+  // DevOps & CI/CD
+    "Docker", "Docker Compose", "Nginx", "GitHub Actions", "Vitest",
+  // Infrastructure as Code & Cloud
+    "Terraform", "AWS", "EC2", "VPC", "S3", "EBS", "IAM", 
+  // Monitoring & Observability
+    "Prometheus", "Grafana", "cAdvisor"
+] ,
     color: "green",
     status: "production",
-    stars: "★ 248",
-    github: "https://github.com",
+    github: "https://github.com/matrix-man-tech/Chatify.git",
     highlight: true,
   },
-  {
-    id: "02",
-    name: "infra-as-code-templates",
-    desc: "Opinionated Terraform modules for AWS: VPC, EKS, RDS with full security hardening, tagging strategy, and cost alerts built-in.",
-    tags: ["Terraform", "AWS", "EKS", "HCL"],
-    color: "cyan",
-    status: "open-source",
-    stars: "★ 512",
-    github: "https://github.com",
-    highlight: false,
-  },
-  {
-    id: "03",
-    name: "observability-stack",
-    desc: "Production-grade Prometheus + Grafana + Loki stack deployable via Helm. Includes 40+ pre-built dashboards and alerting runbooks.",
-    tags: ["Prometheus", "Grafana", "Loki", "Helm"],
-    color: "amber",
-    status: "open-source",
-    stars: "★ 189",
-    github: "https://github.com",
-    highlight: false,
-  },
-  {
-    id: "04",
-    name: "gitops-pipeline",
-    desc: "Zero-downtime GitOps deployment pipeline using ArgoCD + GitHub Actions. Supports canary, blue-green, and rolling deployments.",
-    tags: ["ArgoCD", "GitHub Actions", "GitOps", "Helm"],
-    color: "green",
-    status: "production",
-    stars: "★ 97",
-    github: "https://github.com",
-    highlight: false,
-  },
-  {
-    id: "05",
-    name: "secrets-manager-proxy",
-    desc: "Lightweight sidecar proxy that injects Vault secrets into containers at runtime. No SDK changes needed in the application code.",
-    tags: ["Go", "Vault", "Docker", "Sidecar"],
-    color: "cyan",
-    status: "production",
-    stars: "★ 73",
-    github: "https://github.com",
-    highlight: false,
-  },
-  {
-    id: "06",
-    name: "pg-migrate-zero",
-    desc: "Zero-downtime PostgreSQL schema migration tool with automatic rollback, shadow database testing, and Slack notifications.",
-    tags: ["Go", "PostgreSQL", "CLI"],
-    color: "amber",
-    status: "open-source",
-    stars: "★ 134",
-    github: "https://github.com",
-    highlight: false,
-  },
+  // {
+  //   id: "02",
+  //   name: "infra-as-code-templates",
+  //   desc: "Opinionated Terraform modules for AWS: VPC, EKS, RDS with full security hardening, tagging strategy, and cost alerts built-in.",
+  //   tags: ["Terraform", "AWS", "EKS", "HCL"],
+  //   color: "cyan",
+  //   status: "open-source",
+  //   github: "https://github.com",
+  //   highlight: false,
+  // },
+  // {
+  //   id: "03",
+  //   name: "observability-stack",
+  //   desc: "Production-grade Prometheus + Grafana + Loki stack deployable via Helm. Includes 40+ pre-built dashboards and alerting runbooks.",
+  //   tags: ["Prometheus", "Grafana", "Loki", "Helm"],
+  //   color: "amber",
+  //   status: "open-source",
+  //   github: "https://github.com",
+  //   highlight: false,
+  // },
+  // {
+  //   id: "04",
+  //   name: "gitops-pipeline",
+  //   desc: "Zero-downtime GitOps deployment pipeline using ArgoCD + GitHub Actions. Supports canary, blue-green, and rolling deployments.",
+  //   tags: ["ArgoCD", "GitHub Actions", "GitOps", "Helm"],
+  //   color: "green",
+  //   status: "production",
+  //   github: "https://github.com",
+  //   highlight: false,
+  // },
+  // {
+  //   id: "05",
+  //   name: "secrets-manager-proxy",
+  //   desc: "Lightweight sidecar proxy that injects Vault secrets into containers at runtime. No SDK changes needed in the application code.",
+  //   tags: ["Go", "Vault", "Docker", "Sidecar"],
+  //   color: "cyan",
+  //   status: "production",
+  //   github: "https://github.com",
+  //   highlight: false,
+  // },
 ];
 ---
 
@@ -117,7 +112,7 @@ const projects = [
         <span class="more-text">
           <span style="color:var(--green)">$</span> find more projects at
         </span>
-        <a href="https://github.com" target="_blank" rel="noopener" class="github-link">github.com/alexrivera →</a>
+        <a href="https://github.com/matrix-man-tech" target="_blank" rel="noopener" class="github-link">github.com/matrix-man-tech →</a>
       </div>
     </div>
   </section>

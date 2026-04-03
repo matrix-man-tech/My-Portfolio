@@ -3,53 +3,44 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 const experience = [
   {
-    company: "FinCloud Systems",
-    role: "Senior DevOps Engineer",
-    period: "2022 — present",
-    location: "Remote",
+    company: "Wellnest",
+    role: "Full Stack Engineer",
+    period: "Sep 2025 — Mar 2026",
+    location: "Trivandrum, Kerala",
     color: "green",
-    current: true,
+    current: false,
     points: [
-      "Migrated 40+ microservices from ECS to EKS, reducing infrastructure cost by 35%",
-      "Built GitOps pipeline with ArgoCD handling 200+ deployments per week with zero downtime",
-      "Designed multi-region HA architecture sustaining 99.98% uptime for 2M+ users",
-      "Led on-call rotation, reduced MTTR from 45min to under 8min via improved runbooks",
+     "Architected high-throughput RESTful services using Go (Gin) and Clean Architecture, significantly reducing technical debt and accelerating feature delivery cycles.",
+     "Engineered a scalable multi-service backend for health-data processing, utilizing GORM-optimized PostgreSQL schemas and indexing to enhance overall query performance.",
+     "Orchestrated robust production workloads on AWS (EC2, RDS, DynamoDB), configuring automated backup policies and Elastic IP routing to ensure high system availability.",
+     "Streamlined release workflows by developing GitHub Actions CI/CD pipelines, eliminating manual deployment bottlenecks and ensuring strict build consistency.",
+     "Hardened infrastructure security and optimized traffic distribution via Nginx reverse proxy configurations, successfully reducing end-to-end system latency.",
+     "Implemented comprehensive JWT-based RBAC (Role-Based Access Control), strictly securing sensitive endpoints across health and user management modules.",
+     "Developed a centralized admin ecosystem using Vue.js, integrating backend APIs to provide stakeholders with reliable data visualization and system oversight."
     ]
   },
   {
-    company: "DataBridge Inc.",
-    role: "Backend Engineer",
-    period: "2020 — 2022",
-    location: "Bangalore, IN",
+    company: "Enfin Technologies",
+    role: "Junior Software Engineer",
+    period: "Jan 2023 — Apr 2023",
+    location: "Trivandrum, Kerala",
     color: "cyan",
     current: false,
     points: [
-      "Built high-throughput data ingestion service in Go processing 100k events/sec on Kafka",
-      "Designed PostgreSQL sharding strategy supporting 5TB+ dataset with sub-10ms queries",
-      "Containerized legacy Python services with Docker, cutting deployment time from 2hr to 15min",
-      "Mentored 3 junior engineers; established code review culture and testing standards",
+      "Engineered scalable RESTful APIs using Node.js and Express with modular architecture patterns  .",
+      "Architected NoSQL schemas in MongoDB optimized for high-concurrency data operations.",
+      "Orchestrated full-stack integration between React interfaces and complex server-side logic.",
+      "Hardened API security through standardized middleware for authentication and request validation.",
     ]
-  },
-  {
-    company: "Stackify Labs",
-    role: "Backend Engineer",
-    period: "2019 — 2020",
-    location: "Chennai, IN",
-    color: "amber",
-    current: false,
-    points: [
-      "Developed REST and gRPC APIs in Python (FastAPI) serving 500k+ daily active users",
-      "Set up CI/CD pipelines in GitHub Actions, reducing release cycle from weekly to daily",
-      "Integrated Redis caching layer, improving API response times by 60%",
-    ]
-  },
+  }
 ];
 
 const education = {
   degree: "B.Tech Computer Science",
-  school: "National Institute of Technology",
-  year: "2015 — 2019",
-  gpa: "8.7 / 10",
+  school: "APJ Abdul Kalam Technological University",
+  year: "2016— 2020"
+  
+
 };
 ---
 
@@ -65,7 +56,7 @@ const education = {
           <span class="cmd">cat resume.txt</span>
         </div>
         <h1 class="page-title">Experience</h1>
-        <p class="page-desc">5+ years building and operating production systems at scale.</p>
+        <p class="page-desc">1+ years building and operating production systems at scale.</p>
       </div>
 
       <div class="timeline">
@@ -115,7 +106,7 @@ const education = {
           <div>
             <div class="edu-degree">{education.degree}</div>
             <div class="edu-school">{education.school}</div>
-            <div class="edu-meta">{education.year} · GPA {education.gpa}</div>
+            <div class="edu-meta">{education.year}</div>
           </div>
         </div>
       </div>
