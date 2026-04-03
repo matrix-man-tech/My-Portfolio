@@ -1,0 +1,281 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Contact">
+  <section class="contact-page">
+    <div class="container">
+      <div class="page-header">
+        <div class="prompt-line">
+          <span class="ps1">guest@portfolio</span>
+          <span style="color:var(--text-dim)">:</span>
+          <span class="path">~/contact</span>
+          <span style="color:var(--text-dim)">$</span>
+          <span class="cmd">./send_message.sh</span>
+        </div>
+        <h1 class="page-title">Get in Touch</h1>
+        <p class="page-desc">Open to interesting projects, collaborations, and new opportunities.</p>
+      </div>
+
+      <div class="contact-grid">
+        <div class="contact-links-col">
+          <div class="terminal-block">
+            <div class="tb-header">
+              <span class="tb-title">// channels</span>
+            </div>
+            <div class="tb-body">
+              <a href="mailto:alex@example.com" class="channel-item">
+                <span class="channel-icon green">✉</span>
+                <div>
+                  <div class="channel-label">Email</div>
+                  <div class="channel-value">alex@example.com</div>
+                </div>
+              </a>
+              <a href="https://github.com" target="_blank" rel="noopener" class="channel-item">
+                <span class="channel-icon cyan">⌥</span>
+                <div>
+                  <div class="channel-label">GitHub</div>
+                  <div class="channel-value">github.com/alexrivera</div>
+                </div>
+              </a>
+              <a href="https://linkedin.com" target="_blank" rel="noopener" class="channel-item">
+                <span class="channel-icon amber">⊞</span>
+                <div>
+                  <div class="channel-label">LinkedIn</div>
+                  <div class="channel-value">linkedin.com/in/alexrivera</div>
+                </div>
+              </a>
+            </div>
+          </div>
+
+          <div class="availability">
+            <div class="avail-row">
+              <span class="avail-dot"></span>
+              <span class="avail-text">Available for freelance / contract work</span>
+            </div>
+            <div class="avail-tz">
+              Timezone: <span class="green">IST (UTC+5:30)</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-col">
+          <div class="terminal-block">
+            <div class="tb-header">
+              <span class="tb-title">// compose message</span>
+            </div>
+            <div class="tb-body">
+              <form class="contact-form" id="contactForm">
+                <div class="form-field">
+                  <label class="field-label">
+                    <span class="label-prompt green">→</span> name
+                  </label>
+                  <input
+                    type="text"
+                    name="name"
+                    class="field-input"
+                    placeholder="your name"
+                    required
+                  />
+                </div>
+                <div class="form-field">
+                  <label class="field-label">
+                    <span class="label-prompt green">→</span> email
+                  </label>
+                  <input
+                    type="email"
+                    name="email"
+                    class="field-input"
+                    placeholder="your@email.com"
+                    required
+                  />
+                </div>
+                <div class="form-field">
+                  <label class="field-label">
+                    <span class="label-prompt green">→</span> subject
+                  </label>
+                  <input
+                    type="text"
+                    name="subject"
+                    class="field-input"
+                    placeholder="what's this about?"
+                  />
+                </div>
+                <div class="form-field">
+                  <label class="field-label">
+                    <span class="label-prompt green">→</span> message
+                  </label>
+                  <textarea
+                    name="message"
+                    class="field-input field-textarea"
+                    placeholder="your message here..."
+                    rows="5"
+                    required
+                  ></textarea>
+                </div>
+                <button type="submit" class="submit-btn" id="submitBtn">
+                  <span id="btnText">$ send --message</span>
+                </button>
+                <div class="form-status" id="formStatus"></div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  const form = document.getElementById('contactForm') as HTMLFormElement;
+  const btn = document.getElementById('submitBtn') as HTMLButtonElement;
+  const btnText = document.getElementById('btnText') as HTMLSpanElement;
+  const status = document.getElementById('formStatus') as HTMLDivElement;
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    btnText.textContent = '$ sending...';
+    btn.disabled = true;
+    await new Promise(r => setTimeout(r, 1200));
+    btnText.textContent = '$ send --message';
+    btn.disabled = false;
+    status.innerHTML = '<span class="success">✓ Message sent! I\'ll get back to you soon.</span>';
+    form.reset();
+    setTimeout(() => { status.innerHTML = ''; }, 5000);
+  });
+</script>
+
+<style>
+.contact-page { padding: 4rem 0 2rem; }
+.page-header { margin-bottom: 3rem; }
+.page-title { font-size: clamp(28px, 5vw, 42px); font-weight: 800; margin: 0.5rem 0; }
+.page-desc { color: var(--text-dim); font-size: 13px; }
+.ps1 { color: var(--green); font-family: var(--font-mono); font-size: 12px; }
+.path { color: var(--cyan); font-family: var(--font-mono); font-size: 12px; }
+.cmd { color: var(--text-bright); font-family: var(--font-mono); font-size: 12px; }
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.6fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+.terminal-block {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+}
+.tb-header {
+  background: var(--bg-surface);
+  border-bottom: 1px solid var(--border);
+  padding: 10px 16px;
+}
+.tb-title { font-size: 11px; color: var(--text-dim); font-family: var(--font-mono); }
+.tb-body { padding: 1.5rem; }
+
+.channel-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.85rem 0;
+  border-bottom: 1px solid var(--border);
+  text-decoration: none;
+  transition: all 0.2s;
+}
+.channel-item:last-child { border-bottom: none; }
+.channel-item:hover { transform: translateX(4px); }
+.channel-icon { font-size: 18px; width: 30px; text-align: center; }
+.channel-icon.green { color: var(--green); }
+.channel-icon.cyan { color: var(--cyan); }
+.channel-icon.amber { color: var(--amber); }
+.channel-label { font-size: 11px; color: var(--text-dim); margin-bottom: 2px; font-family: var(--font-mono); }
+.channel-value { font-size: 13px; color: var(--text-bright); }
+
+.availability {
+  margin-top: 1.25rem;
+  padding: 1rem 1.25rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+.avail-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.5rem;
+}
+.avail-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 8px var(--green);
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; box-shadow: 0 0 8px var(--green); }
+  50% { opacity: 0.6; box-shadow: 0 0 3px var(--green); }
+}
+.avail-text { font-size: 12px; color: var(--text); }
+.avail-tz { font-size: 11px; color: var(--text-dim); font-family: var(--font-mono); }
+.green { color: var(--green); }
+
+.contact-form { display: flex; flex-direction: column; gap: 1.1rem; }
+.form-field { display: flex; flex-direction: column; gap: 0.4rem; }
+.field-label {
+  font-size: 11px;
+  color: var(--text-dim);
+  font-family: var(--font-mono);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.label-prompt { }
+.field-input {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 9px 12px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-bright);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  width: 100%;
+}
+.field-input::placeholder { color: var(--text-dim); }
+.field-input:focus {
+  border-color: var(--green);
+  box-shadow: 0 0 0 2px rgba(74,222,128,0.1);
+}
+.field-textarea { resize: vertical; min-height: 100px; }
+
+.submit-btn {
+  background: rgba(74,222,128,0.08);
+  border: 1px solid var(--green);
+  border-radius: 4px;
+  padding: 11px 20px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--green);
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: left;
+}
+.submit-btn:hover {
+  background: rgba(74,222,128,0.18);
+  box-shadow: 0 0 20px rgba(74,222,128,0.15);
+}
+.submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.form-status { font-size: 12px; min-height: 20px; }
+:global(.success) { color: var(--green); }
+
+@media (max-width: 760px) {
+  .contact-grid { grid-template-columns: 1fr; }
+}
+</style>

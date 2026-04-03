@@ -1,0 +1,159 @@
+---
+const navLinks = [
+  { href: '/', label: '~/' },
+  { href: '/skills', label: 'skills' },
+  { href: '/projects', label: 'projects' },
+  { href: '/experience', label: 'experience' },
+  { href: '/contact', label: 'contact' },
+];
+
+const current = Astro.url.pathname;
+---
+
+<header class="nav-header">
+  <div class="container nav-inner">
+    <a href="/" class="nav-logo">
+      <span class="logo-bracket">[</span>
+      <span class="logo-name">dev</span>
+      <span class="logo-at">@</span>
+      <span class="logo-host">ops</span>
+      <span class="logo-bracket">]</span>
+      <span class="logo-cursor">▋</span>
+    </a>
+    <nav class="nav-links">
+      {navLinks.map(link => (
+        <a
+          href={link.href}
+          class={`nav-link ${current === link.href || (link.href !== '/' && current.startsWith(link.href)) ? 'active' : ''}`}
+        >
+          <span class="nav-prefix">./</span>{link.label}
+        </a>
+      ))}
+    </nav>
+    <button class="nav-toggle" aria-label="Menu" id="navToggle">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="nav-mobile" id="navMobile">
+    {navLinks.map(link => (
+      <a href={link.href} class="nav-mobile-link">{link.label}</a>
+    ))}
+  </div>
+</header>
+
+<script>
+  const toggle = document.getElementById('navToggle');
+  const mobile = document.getElementById('navMobile');
+  toggle?.addEventListener('click', () => mobile?.classList.toggle('open'));
+</script>
+
+<style>
+.nav-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(10, 14, 15, 0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 60px;
+  gap: 2rem;
+}
+
+.nav-logo {
+  font-family: var(--font-mono);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-bright);
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  display: flex;
+  align-items: center;
+  gap: 1px;
+}
+.logo-bracket { color: var(--text-dim); }
+.logo-name { color: var(--green); }
+.logo-at { color: var(--text-dim); }
+.logo-host { color: var(--cyan); }
+.logo-cursor {
+  color: var(--green);
+  animation: blink 1.2s step-end infinite;
+  margin-left: 2px;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.nav-link {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-dim);
+  text-decoration: none;
+  padding: 5px 12px;
+  border-radius: 4px;
+  border: 1px solid transparent;
+  transition: all 0.2s;
+  letter-spacing: 0.03em;
+}
+.nav-prefix { color: var(--border-bright); }
+.nav-link:hover {
+  color: var(--green);
+  border-color: var(--border);
+  background: var(--bg-card);
+}
+.nav-link.active {
+  color: var(--green);
+  border-color: var(--border-bright);
+  background: var(--bg-card);
+}
+
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+}
+.nav-toggle span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--text-dim);
+  border-radius: 1px;
+}
+
+.nav-mobile {
+  display: none;
+  flex-direction: column;
+  padding: 1rem 2rem;
+  border-top: 1px solid var(--border);
+  gap: 0.5rem;
+}
+.nav-mobile.open { display: flex; }
+.nav-mobile-link {
+  font-size: 13px;
+  color: var(--text-dim);
+  padding: 6px 0;
+}
+.nav-mobile-link:hover { color: var(--green); }
+
+@media (max-width: 640px) {
+  .nav-links { display: none; }
+  .nav-toggle { display: flex; }
+}
+</style>

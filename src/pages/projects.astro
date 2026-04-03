@@ -1,0 +1,241 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const projects = [
+  {
+    id: "01",
+    name: "k8s-autoscaler",
+    desc: "Custom Kubernetes HPA controller using KEDA with Kafka lag metrics. Handles 50k+ events/sec with sub-100ms autoscaling decisions.",
+    tags: ["Go", "Kubernetes", "Kafka", "KEDA"],
+    color: "green",
+    status: "production",
+    stars: "★ 248",
+    github: "https://github.com",
+    highlight: true,
+  },
+  {
+    id: "02",
+    name: "infra-as-code-templates",
+    desc: "Opinionated Terraform modules for AWS: VPC, EKS, RDS with full security hardening, tagging strategy, and cost alerts built-in.",
+    tags: ["Terraform", "AWS", "EKS", "HCL"],
+    color: "cyan",
+    status: "open-source",
+    stars: "★ 512",
+    github: "https://github.com",
+    highlight: false,
+  },
+  {
+    id: "03",
+    name: "observability-stack",
+    desc: "Production-grade Prometheus + Grafana + Loki stack deployable via Helm. Includes 40+ pre-built dashboards and alerting runbooks.",
+    tags: ["Prometheus", "Grafana", "Loki", "Helm"],
+    color: "amber",
+    status: "open-source",
+    stars: "★ 189",
+    github: "https://github.com",
+    highlight: false,
+  },
+  {
+    id: "04",
+    name: "gitops-pipeline",
+    desc: "Zero-downtime GitOps deployment pipeline using ArgoCD + GitHub Actions. Supports canary, blue-green, and rolling deployments.",
+    tags: ["ArgoCD", "GitHub Actions", "GitOps", "Helm"],
+    color: "green",
+    status: "production",
+    stars: "★ 97",
+    github: "https://github.com",
+    highlight: false,
+  },
+  {
+    id: "05",
+    name: "secrets-manager-proxy",
+    desc: "Lightweight sidecar proxy that injects Vault secrets into containers at runtime. No SDK changes needed in the application code.",
+    tags: ["Go", "Vault", "Docker", "Sidecar"],
+    color: "cyan",
+    status: "production",
+    stars: "★ 73",
+    github: "https://github.com",
+    highlight: false,
+  },
+  {
+    id: "06",
+    name: "pg-migrate-zero",
+    desc: "Zero-downtime PostgreSQL schema migration tool with automatic rollback, shadow database testing, and Slack notifications.",
+    tags: ["Go", "PostgreSQL", "CLI"],
+    color: "amber",
+    status: "open-source",
+    stars: "★ 134",
+    github: "https://github.com",
+    highlight: false,
+  },
+];
+---
+
+<BaseLayout title="Projects">
+  <section class="projects-page">
+    <div class="container">
+      <div class="page-header">
+        <div class="prompt-line">
+          <span class="ps1">guest@portfolio</span>
+          <span style="color:var(--text-dim)">:</span>
+          <span class="path">~/projects</span>
+          <span style="color:var(--text-dim)">$</span>
+          <span class="cmd">ls -la --sort=stars</span>
+        </div>
+        <h1 class="page-title">Projects</h1>
+        <p class="page-desc">Things I've built — mostly infrastructure, tooling, and backend systems.</p>
+      </div>
+
+      <div class="projects-grid">
+        {projects.map(p => (
+          <div class={`project-card ${p.highlight ? 'featured' : ''} border-${p.color}`}>
+            <div class="project-top">
+              <div class="project-meta">
+                <span class="project-id">{p.id}</span>
+                <span class={`project-status status-${p.color}`}>{p.status}</span>
+                {p.highlight && <span class="featured-badge">FEATURED</span>}
+              </div>
+              <span class="project-stars">{p.stars}</span>
+            </div>
+            <h3 class="project-name">
+              <span class={`name-prefix ${p.color}`}>./</span>{p.name}
+            </h3>
+            <p class="project-desc">{p.desc}</p>
+            <div class="project-footer">
+              <div class="project-tags">
+                {p.tags.map(tag => <span class="tag">{tag}</span>)}
+              </div>
+              <a href={p.github} target="_blank" rel="noopener" class={`project-link ${p.color}`}>
+                view →
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div class="more-row">
+        <span class="more-text">
+          <span style="color:var(--green)">$</span> find more projects at
+        </span>
+        <a href="https://github.com" target="_blank" rel="noopener" class="github-link">github.com/alexrivera →</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+.projects-page { padding: 4rem 0 2rem; }
+
+.page-header { margin-bottom: 3rem; }
+.page-title { font-size: clamp(28px, 5vw, 42px); font-weight: 800; margin: 0.5rem 0; }
+.page-desc { color: var(--text-dim); font-size: 13px; }
+.ps1 { color: var(--green); font-family: var(--font-mono); font-size: 12px; }
+.path { color: var(--cyan); font-family: var(--font-mono); font-size: 12px; }
+.cmd { color: var(--text-bright); font-family: var(--font-mono); font-size: 12px; }
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 3rem;
+}
+
+.project-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  transition: all 0.2s;
+}
+.project-card.featured {
+  grid-column: span 2;
+  background: linear-gradient(135deg, var(--bg-card), rgba(74,222,128,0.03));
+}
+.project-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+}
+.project-card.border-green:hover { border-color: rgba(74,222,128,0.35); }
+.project-card.border-cyan:hover { border-color: rgba(34,211,238,0.35); }
+.project-card.border-amber:hover { border-color: rgba(251,191,36,0.35); }
+
+.project-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.project-meta { display: flex; align-items: center; gap: 0.5rem; }
+.project-id { font-size: 11px; color: var(--text-dim); font-family: var(--font-mono); }
+.project-status {
+  font-size: 10px;
+  padding: 2px 7px;
+  border-radius: 2px;
+  letter-spacing: 0.05em;
+  font-family: var(--font-mono);
+}
+.status-green { background: rgba(74,222,128,0.1); color: var(--green); border: 1px solid rgba(74,222,128,0.2); }
+.status-cyan { background: rgba(34,211,238,0.1); color: var(--cyan); border: 1px solid rgba(34,211,238,0.2); }
+.status-amber { background: rgba(251,191,36,0.1); color: var(--amber); border: 1px solid rgba(251,191,36,0.2); }
+
+.featured-badge {
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  color: var(--green);
+  border: 1px solid var(--green);
+  padding: 2px 6px;
+  border-radius: 2px;
+}
+.project-stars { font-size: 11px; color: var(--amber); font-family: var(--font-mono); }
+
+.project-name {
+  font-family: var(--font-mono);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-bright);
+  letter-spacing: 0.02em;
+}
+.name-prefix { }
+.name-prefix.green { color: var(--green); }
+.name-prefix.cyan { color: var(--cyan); }
+.name-prefix.amber { color: var(--amber); }
+
+.project-desc { font-size: 12px; color: var(--text-dim); line-height: 1.7; flex: 1; }
+
+.project-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+  flex-wrap: wrap;
+}
+.project-tags { display: flex; flex-wrap: wrap; gap: 4px; }
+.project-link {
+  font-size: 11px;
+  font-family: var(--font-mono);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.project-link.green { color: var(--green); }
+.project-link.cyan { color: var(--cyan); }
+.project-link.amber { color: var(--amber); }
+
+.more-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 12px;
+  font-family: var(--font-mono);
+  color: var(--text-dim);
+  border-top: 1px solid var(--border);
+  padding-top: 2rem;
+}
+.github-link { color: var(--cyan); }
+
+@media (max-width: 700px) {
+  .project-card.featured { grid-column: span 1; }
+}
+</style>
