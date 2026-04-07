@@ -9,6 +9,9 @@ on:
       - main
   workflow_dispatch:
 
+env:
+  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
 
 # Allow one concurrent deployment per branch
 concurrency:
@@ -45,8 +48,6 @@ jobs:
 
       - name: Pull Vercel environment info
         run: vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
-        # Note: vercel pull works here because .vercel/project.json is committed in your repo.
-        # Best practice is to ignore .vercel/ and pass VERCEL_ORG_ID and VERCEL_PROJECT_ID via secrets instead.
 
       - name: Build Vercel output
         run: vercel build --token=${{ secrets.VERCEL_TOKEN }}
